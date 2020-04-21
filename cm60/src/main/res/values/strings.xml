@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Scan1Service</string>
+
+    <string name="about">About</string>
+    <string name="description">Scan service for cm60</string>
+
+    <!-- CodeSetActivity -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="code_set_title">Code setting</string>
+    <string name="paramset_min_len">Minimum length</string>
+    <string name="paramset_max_len">Maximum length</string>
+</resources>

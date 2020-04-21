@@ -1,0 +1,18 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hhw.ssn.cm60.CodeSetFragment">
+
+    <ListView
+        android:id="@+id/gv_codeSetMenu"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/tb_topToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="0dp">
+    </ListView>
+
+</FrameLayout>

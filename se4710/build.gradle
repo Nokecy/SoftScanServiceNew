@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        applicationId "com.ssn.se4710"
+        minSdkVersion 24
+        targetSdkVersion 28
+        versionCode 9
+        versionName "1.9"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // ARouter compile options
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+    }
+    signingConfigs {
+        // BX6000系列系统签名
+        bx6000 {
+            keyAlias 'android'
+            keyPassword 'android'
+            storeFile file('./bx6000.keystore')
+            storePassword 'android'
+        }
+        // C5000,BX1000,H947系列系统签名
+        bx1000 {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('./hhw.keystore')
+            storePassword 'android'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.bx6000
+        }
+        release {
+            signingConfig signingConfigs.bx6000
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    /**
+     *  schemaVersion--> 指定数据库schema版本号，迁移等操作会用到;
+     *  daoPackage --> dao的包名，包名默认是entity所在的包；
+     *  targetGenDir --> 生成数据库文件的目录;
+     */
+    greendao {
+        schemaVersion 3
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def fileName = "se4710service_v${defaultConfig.versionName}.apk"
+            outputFileName = fileName
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation project(path: ':commonlib')
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'io.github.yuweiguocn:GreenDaoUpgradeHelper:v2.2.1'
+}

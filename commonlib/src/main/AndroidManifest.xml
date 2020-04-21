@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hhw.ssn.commonlib">
+
+    <application
+        android:allowBackup="false"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:persistent="true">
+
+        <activity android:name="com.hhw.ssn.comui.TabHostActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+
+        <!--<receiver
+            android:name="com.hhw.ssn.comui.KeyReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.FUN_KEY" />
+                <action android:name="android.rfid.FUN_KEY" />
+            </intent-filter>
+        </receiver>-->
+    </application>
+
+</manifest>

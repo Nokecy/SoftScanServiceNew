@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Se4710码制列表,symbologies_4710表的name字段 -->
+    <string-array name="symbologies">
+        <item>UPC-A</item>
+        <item>UPC-E</item>
+        <item>EAN-8/JAN-8</item>
+        <item>EAN-13/JAN-13</item>
+        <item>ISSN EAN</item>
+        <item>Code 128</item>
+        <item>GS1&#8211;128/UCC/EAN&#8211;128</item>
+        <item>ISBT 128</item>
+        <item>Code 39</item>
+        <item>Trioptic Code 39</item>
+        <item>Code 93</item>
+        <item>Code 11</item>
+        <item>Interleaved 2 of 5</item>
+        <item>Discrete 2 of 5</item>
+        <item>Codabar</item>
+        <item>MSI</item>
+        <item>Chinese 2 of 5</item>
+        <item>Korean 3 of 5</item>
+        <item>Matrix 2 of 5</item>
+        <item>US Postnet</item>
+        <item>US Planet</item>
+        <item>UK Postal</item>
+        <item>Japan Postal</item>
+        <item>Australia Post</item>
+        <item>Netherlands KIX Code</item>
+        <item>USPS 4CB/One Code/Intelligent Mail</item>
+        <item>UPU FICS Postal</item>
+        <item>GS1 DataBar-14</item>
+        <item>GS1 DataBar Limited</item>
+        <item>GS1 DataBar Expanded</item>
+        <item>PDF417</item>
+        <item>MicroPDF417</item>
+        <item>Data Matrix</item>
+        <item>Maxicode</item>
+        <item>QR Code</item>
+        <item>MicroQR</item>
+        <item>Aztec</item>
+        <item>Han Xin</item>
+    </string-array>
+    <!-- Se4710码制代号列表,symbologies_4710表的paramNum字段 -->
+    <integer-array name="symbologies_parameter">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+        <item>3</item>
+        <item>617</item>
+        <item>8</item>
+        <item>14</item>
+        <item>84</item>
+        <item>0</item>
+        <item>13</item>
+        <item>9</item>
+        <item>10</item>
+        <item>6</item>
+        <item>5</item>
+        <item>7</item>
+        <item>11</item>
+        <item>408</item>
+        <item>581</item>
+        <item>618</item>
+        <item>89</item>
+        <item>90</item>
+        <item>91</item>
+        <item>290</item>
+        <item>291</item>
+        <item>326</item>
+        <item>592</item>
+        <item>611</item>
+        <item>338</item>
+        <item>339</item>
+        <item>340</item>
+        <item>15</item>
+        <item>227</item>
+        <item>292</item>
+        <item>294</item>
+        <item>293</item>
+        <item>573</item>
+        <item>574</item>
+        <item>1167</item>
+    </integer-array>
+
+    <integer-array name="default_enabled">
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+    </integer-array>
+
+    <string-array name="symbologies_parent">
+        <item>UPC/EAN</item>
+        <item>Code 128</item>
+        <item>Code 39</item>
+        <item>Code 93</item>
+        <item>Code 11</item>
+        <item>Interleaved 2 of 5 (ITF)</item>
+        <item>Discrete 2 of 5 (DTF)</item>
+        <item>Codabar (NW - 7)</item>
+        <item>MSI</item>
+        <item>Chinese 2 of 5</item>
+        <item>Korean 3 of 5</item>
+        <item>Matrix 2 of 5</item>
+        <item>Inverse 1D</item>
+        <item>Postal Codes</item>
+        <item>GS1 DataBar (formerly RSS, Reduced Space Symbology)</item>
+        <item>Composite</item>
+        <item>PDF417</item>
+        <item>MicroPDF417</item>
+        <item>Code 128 Emulation</item>
+        <item>Data Matrix</item>
+        <item>Maxicode</item>
+        <item>QR Code</item>
+        <item>MicroQR</item>
+        <item>Aztec</item>
+        <item>Han Xin</item>
+        <item>Symbology-Specific Security Levels</item>
+    </string-array>
+    <!-- paramName -->
+    <string-array name="symbologies_child">
+        <item>@array/symbologies_child_upcean</item>
+        <item>@array/symbologies_child_code128</item>
+        <item>@array/symbologies_child_code39</item>
+        <item>@array/symbologies_child_code93</item>
+        <item>@array/symbologies_child_code11</item>
+        <item>@array/symbologies_child_itf25</item>
+        <item>@array/symbologies_child_dtf25</item>
+        <item>@array/symbologies_child_codabar</item>
+        <item>@array/symbologies_child_msi</item>
+        <item>@array/symbologies_child_cn25</item>
+        <item>@array/symbologies_child_kn35</item>
+        <item>@array/symbologies_child_mat25</item>
+        <item>@array/symbologies_child_inverse1d</item>
+        <item>@array/symbologies_child_postalcode</item>
+        <item>@array/symbologies_child_gs1databar</item>
+        <item>@array/symbologies_child_composite</item>
+        <item>@array/symbologies_child_pdf417</item>
+        <item>@array/symbologies_child_micropdf417</item>
+        <item>@array/symbologies_child_code128emulation</item>
+        <item>@array/symbologies_child_datamatrix</item>
+        <item>@array/symbologies_child_maxicode</item>
+        <item>@array/symbologies_child_qrcode</item>
+        <item>@array/symbologies_child_microqr</item>
+        <item>@array/symbologies_child_aztec</item>
+        <item>@array/symbologies_child_hanxin</item>
+        <item>@array/symbologies_child_specific</item>
+    </string-array>
+
+    <string-array name="symbologies_child_upcean">
+        <item>|-- UPC-A: </item>
+        <item>|-- UPC-E: </item>
+        <item>|-- UPC-E1: </item>
+        <item>|-- EAN-8: </item>
+        <item>|-- EAN-13: </item>
+        <item>|-- Bookland EAN: </item>
+        <item>|-- Transmit UPC-A Check Digit: </item>
+        <item>|-- Transmit UPC-E Check Digit: </item>
+        <item>|-- Transmit UPC-E1 Check Digit: </item>
+        <item>|-- UPC-A Preamble: </item>
+        <item>|-- UPC-E Preamble: </item>
+        <item>|-- UPC-E1 Preamble: </item>
+        <item>|-- Convert UPC-E to A: </item>
+        <item>|-- Convert UPC-E1 to A: </item>
+        <item>|-- UCC Coupon Extended Code: </item>
+    </string-array>
+    <string-array name="symbologies_child_code128">
+        <item>|-- Code 128: </item>
+        <item>|-- ISBT 128: </item>
+        <item>|-- GS1 128: </item>
+    </string-array>
+    <string-array name="symbologies_child_code39">
+        <item>|-- Code 39: </item>
+        <item>|-- Minimum length(0~55): </item>
+        <item>|-- Maximum length(0~55): </item>
+        <item>|-- Trioptic Code 39: </item>
+        <item>|-- Code 39 Full ASCII Conversion: </item>
+        <item>|-- Convert Code 39 to Code 32 (Italian Pharmacy Code): </item>
+        <item>|-- Adding the prefix character "A" to Code 32: </item>
+        <item>|-- Code 39 Check Digit Verification: </item>
+        <item>|-- Transmit Code 39 Check Digit: </item>
+    </string-array>
+    <string-array name="symbologies_child_code93">
+        <item>|-- Code 93: </item>
+        <item>|-- Minimum length(0~55): </item>
+        <item>|-- Maximum length(0~55): </item>
+    </string-array>
+    <string-array name="symbologies_child_code11">
+        <item>|-- Code 11: </item>
+        <item>|-- Minimum length(0~55): </item>
+        <item>|-- Maximum length(0~55): </item>
+        <item>|-- Code 11 Check Digit Verification: </item>
+        <item>|-- Transmit Code 11 Check Digit(s): </item>
+    </string-array>
+    <string-array name="symbologies_child_itf25">
+        <item>|-- Interleaved 2 of 5: </item>
+        <item>|-- Minimum length(0~55): </item>
+        <item>|-- Maximum length(0~55): </item>
+        <item>|-- I 2 of 5 Check Digit Verification: </item>
+        <item>|-- Transmit I 2 of 5 Check Digit: </item>
+        <item>|-- I 2 of 5 Security Level: </item>
+    </string-array>
+    <string-array name="symbologies_child_dtf25">
+        <item>|-- Discrete 2 of 5: </item>
+        <item>|-- Minimum length(0~55): </item>
+        <item>|-- Maximum length(0~55): </item>
+    </string-array>
+    <string-array name="symbologies_child_codabar">
+        <item>|-- Codabar: </item>
+        <item>|-- Minimum length(0~55): </item>
+        <item>|-- Maximum length(0~55): </item>
+    </string-array>
+    <string-array name="symbologies_child_msi">
+        <item>|-- MSI: </item>
+        <item>|-- Minimum length(0~55): </item>
+        <item>|-- Maximum length(0~55): </item>
+        <item>|-- MSI Check Digits: </item>
+        <item>|-- Transmit MSI Check Digit: </item>
+    </string-array>
+    <string-array name="symbologies_child_cn25">
+        <item>|-- Chinese 2 of 5: </item>
+    </string-array>
+    <string-array name="symbologies_child_kn35">
+        <item>|-- Korean 3 of 5: </item>
+    </string-array>
+    <string-array name="symbologies_child_mat25">
+        <item>|-- Matrix 2 of 5: </item>
+        <item>|-- Minimum length(0~55): </item>
+        <item>|-- Maximum length(0~55): </item>
+        <item>|-- Matrix 2 of 5 Check Digit: </item>
+        <item>|-- Transmit Matrix 2 of 5 Check Digit: </item>
+    </string-array>
+    <string-array name="symbologies_child_inverse1d">
+        <item>|-- Inverse 1D: </item>
+    </string-array>
+    <string-array name="symbologies_child_postalcode">
+        <item>|-- US Postnet: </item>
+        <item>|-- US Planet: </item>
+        <item>|-- Transmit US Postnet and Planet Check Digit: </item>
+        <item>|-- UK Postal: </item>
+        <item>|-- Transmit UK Postal Check Digit: </item>
+        <item>|-- Japan Postal: </item>
+        <item>|-- Australia Post: </item>
+        <item>|-- Netherlands KIX Code: </item>
+        <item>|-- USPS 4CB/One Code/Intelligent Mail: </item>
+        <item>|-- UPU FICS Postal: </item>
+    </string-array>
+    <string-array name="symbologies_child_gs1databar">
+        <item>|-- GS1 DataBar-14: </item>
+        <item>|-- GS1 DataBar Limited: </item>
+        <item>|-- GS1 DataBar Limited Security Level: </item>
+        <item>|-- GS1 DataBar Expanded: </item>
+        <item>|-- Convert GS1 DataBar to UPC/EAN: </item>
+    </string-array>
+    <string-array name="symbologies_child_composite">
+        <item>|-- Composite CC-C: </item>
+        <item>|-- Composite CC-A/B: </item>
+        <item>|-- Composite TLC-39: </item>
+    </string-array>
+    <string-array name="symbologies_child_pdf417">
+        <item>|-- PDF417: </item>
+    </string-array>
+    <string-array name="symbologies_child_micropdf417">
+        <item>|-- MicroPDF417: </item>
+    </string-array>
+    <string-array name="symbologies_child_code128emulation">
+        <item>|-- Code 128 Emulation: </item>
+    </string-array>
+    <string-array name="symbologies_child_datamatrix">
+        <item>|-- Data Matrix: </item>
+        <item>|-- Data Matrix Inverse: </item>
+        <item>|-- Decode Mirror Images (Data Matrix Only): </item>
+    </string-array>
+    <string-array name="symbologies_child_maxicode">
+        <item>|-- Maxicode: </item>
+    </string-array>
+    <string-array name="symbologies_child_qrcode">
+        <item>|-- QR Code: </item>
+        <item>|-- QR Inverse: </item>
+    </string-array>
+    <string-array name="symbologies_child_microqr">
+        <item>|-- MicroQR: </item>
+    </string-array>
+    <string-array name="symbologies_child_aztec">
+        <item>|-- Aztec: </item>
+        <item>|-- Aztec Inverse: </item>
+    </string-array>
+    <string-array name="symbologies_child_hanxin">
+        <item>|-- Han Xin: </item>
+        <item>|-- Han Xin Inverse: </item>
+    </string-array>
+    <string-array name="symbologies_child_specific">
+        <item>|-- Redundancy Level: </item>
+        <item>|-- Security Level: </item>
+        <item>|-- 1D Quiet Zone Level: </item>
+        <item>|-- Intercharacter Gap Size: </item>
+    </string-array>
+
+    <integer-array name="upc_ean_prefix_set_position">
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+    </integer-array>
+    <string-array name="upc_ean_prefix">
+        <item>no preamble</item>
+        <item>System Character Only</item>
+        <item>System Character and Country Code</item>
+    </string-array>
+
+    <string-array name="msi_check_digits">
+        <item>One MSI Check Digit</item>
+        <item>Two MSI Check Digits</item>
+    </string-array>
+    
+    <string-array name="common_level_zero_start">
+        <item>Level 0</item>
+        <item>Level 1</item>
+        <item>Level 2</item>
+        <item>Level 3</item>
+    </string-array>
+
+    <string-array name="gs1_limited_security_level">
+        <item>Level 1(No clear margin required)</item>
+        <item>Level 2(Automatic risk detection)</item>
+        <item>Level 3(5X trailing clear margin)</item>
+        <item>Level 4(GS1 Security level)</item>
+    </string-array>
+
+    <integer-array name="inverse_position">
+        <item>12</item>
+        <item>19</item>
+        <item>21</item>
+        <item>23</item>
+        <item>24</item>
+    </integer-array>
+    <string-array name="inverse_choice">
+        <item>Regular Only</item>
+        <item>Inverse Only</item>
+        <item>Inverse Autodetect</item>
+    </string-array>
+    
+    <string-array name="data_matrix_decode_mirror_images">
+        <item>Never</item>
+        <item>Always</item>
+        <item>Auto</item>
+    </string-array>
+
+    <string-array name="redundancy_level">
+        <item>Redundancy Level 1</item>
+        <item>Redundancy Level 2</item>
+        <item>Redundancy Level 3</item>
+        <item>Redundancy Level 4</item>
+    </string-array>
+
+    <string-array name="intercharacter_gap_size">
+        <item>Normal Intercharacter Gaps</item>
+        <item>Large Intercharacter Gaps</item>
+    </string-array>
+
+    <integer-array name="length_set_position">
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>11</item>
+    </integer-array>
+
+    <integer-array name="symbology_param_num">
+        <item>1</item>
+        <item>2</item>
+        <item>12</item>
+        <item>4</item>
+        <item>3</item>
+        <item>83</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>85</item>
+        <item>8</item>
+        <item>84</item>
+        <item>14</item>
+        <item>0</item>
+        <item>18</item>
+        <item>19</item>
+        <item>13</item>
+        <item>17</item>
+        <item>86</item>
+        <item>231</item>
+        <item>48</item>
+        <item>43</item>
+        <item>9</item>
+        <item>26</item>
+        <item>27</item>
+        <item>10</item>
+        <item>28</item>
+        <item>29</item>
+        <item>52</item>
+        <item>47</item>
+        <item>6</item>
+        <item>22</item>
+        <item>23</item>
+        <item>49</item>
+        <item>44</item>
+        <item>1121</item>
+        <item>5</item>
+        <item>20</item>
+        <item>21</item>
+        <item>7</item>
+        <item>24</item>
+        <item>25</item>
+        <item>11</item>
+        <item>30</item>
+        <item>31</item>
+        <item>50</item>
+        <item>46</item>
+        <item>408</item>
+        <item>581</item>
+        <item>618</item>
+        <item>619</item>
+        <item>620</item>
+        <item>622</item>
+        <item>623</item>
+        <item>586</item>
+        <item>89</item>
+        <item>90</item>
+        <item>95</item>
+        <item>91</item>
+        <item>96</item>
+        <item>290</item>
+        <item>291</item>
+        <item>326</item>
+        <item>592</item>
+        <item>611</item>
+        <item>338</item>
+        <item>339</item>
+        <item>728</item>
+        <item>340</item>
+        <item>397</item>
+        <item>341</item>
+        <item>342</item>
+        <item>371</item>
+        <item>15</item>
+        <item>227</item>
+        <item>123</item>
+        <item>292</item>
+        <item>588</item>
+        <item>537</item>
+        <item>294</item>
+        <item>293</item>
+        <item>587</item>
+        <item>573</item>
+        <item>574</item>
+        <item>589</item>
+        <item>1167</item>
+        <item>1168</item>
+        <item>78</item>
+        <item>77</item>
+        <item>1288</item>
+        <item>381</item>
+    </integer-array>
+
+    <integer-array name="symbology_param_value_def">
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>2</item>
+        <item>55</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>4</item>
+        <item>55</item>
+        <item>0</item>
+        <item>4</item>
+        <item>55</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>14</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>12</item>
+        <item>0</item>
+        <item>0</item>
+        <item>5</item>
+        <item>55</item>
+        <item>0</item>
+        <item>4</item>
+        <item>55</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>14</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>3</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>6</item>
+    </integer-array>
+
+    <string-array name="single_choice_availability">
+        <item>On</item>
+        <item>Off</item>
+    </string-array>
+</resources>

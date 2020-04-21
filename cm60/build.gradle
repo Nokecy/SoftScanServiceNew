@@ -1,0 +1,87 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        applicationId "com.ssn.cm60"
+        minSdkVersion 24
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 28
+        versionCode 3
+        versionName "1.3"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // ARouter compile options
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def fileName = "Scan1Service_v${defaultConfig.versionName}.apk"
+            outputFileName = fileName
+        }
+    }
+
+    signingConfigs {
+        // BX6000系列系统签名
+        bx6000 {
+            keyAlias 'android'
+            keyPassword 'android'
+            storeFile file('./bx6000.keystore')
+            storePassword 'android'
+        }
+        // C5000,BX1000,H947,NB801系列系统签名
+        bx1000 {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('./hhw.keystore')
+            storePassword 'android'
+        }
+        // NB801系统签名
+        nb801 {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('./hhw_nb801.keystore')
+            storePassword 'android'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.nb801
+        }
+        release {
+            signingConfig signingConfigs.nb801
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation project(':commonlib')
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+}

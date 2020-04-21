@@ -1,0 +1,85 @@
+<resources>
+    <string name="app_name">CommonLib</string>
+
+    <!-- TabHostActivity -->
+    <string name="about">About</string>
+    <string name="app_description">Scanning Service</string>
+    <string name="alert_btn_persist">Hide</string>
+    <string name="alert_btn_exit">Exit</string>
+    <string name="alert_title_tips">Whether to exit?</string>
+    <string name="alert_title_exit">Exit will close the scan engine</string>
+
+    <!-- ScanTestFragment -->
+    <string name="scan_tab_title">Scan</string>
+    <string name="scan_btn_scan">Scan</string>
+    <string name="scan_btn_clear">Clear</string>
+    <string name="alert_title_clear">Empty confirm？</string>
+    <string name="alert_btn_confirm">Yes</string>
+    <string name="alert_title_cancel">No</string>
+
+    <!-- SettingsFragment -->
+    <string name="closed">Closed</string>
+    <string name="opened">Opened</string>
+    <string name="settings_tab_title">Settings</string>
+    <!-- Service Switch -->
+    <string name="service_switch">Scanner switch</string>
+    <!-- Enable/Disable Symbology -->
+    <string name="sybology_configuration">Symbology Configuration</string>
+    <string name="symbology_enable_disable_configuration_summary">For enabling or disabling symbologies</string>
+    <string name="symbology_enable_disable_configuration">Enable/Disable</string>
+    <!-- Decoding Preferences -->
+    <string name="preference_voice_title">Voice</string>
+    <string name="preference_vibrator_title">Vibrate</string>
+    <string name="preference_illumination_title">Illumination</string>
+    <string name="preference_aiming_pattern_title">Aiming Pattern</string>
+    <string name="preference_invisible_char">Filter invisible char</string>
+    <string name="preference_rm_space">Filter pre/suffix blank</string>
+    <string name="decode_time_limit_title">Decode Time Limit(ms)</string>
+    <string name="decoding_settings">Decoding preferences</string>
+    <string name="result_char_set">Result char set</string>
+    <string name="prefix">prefix</string>
+    <string name="suffix">suffix</string>
+    <string name="append_ending_char">append ending char</string>
+    <string name="decode_time_limit_illegal">Please input the number between 1000 and 10000</string>
+    <!-- Scanning Preferences -->
+    <string name="scanning_preferences">Scanning Preferences</string>
+    <string name="input_config">Input Configuration</string>
+
+    <!-- Scanning End Char Model -->
+    <string name="scanning_end_char_model">End char post on input</string>
+    <!-- Key config -->
+    <string name="key_config_sum">For configuring scan key</string>
+    <string name="key_config">Key Configuration</string>
+    <string name="key_f1">F1</string>
+    <string name="key_f2">F2</string>
+    <string name="key_f3">F3</string>
+    <string name="key_f4">F4</string>
+    <string name="key_f5">F5</string>
+    <string name="key_f6">F6</string>
+    <string name="key_f7">F7</string>
+    <!-- Stop Scan On Up -->
+    <string name="stop_scan_on_up">Stop scan on up</string>
+    <!-- Continuous Scanning -->
+    <string name="continuous_scanning">Continuous Scanning</string>
+    <string name="scanning_interval">Scanning Interval(ms)</string>
+    <string name="scanning_interval_default">1000</string>
+    <string name="scanning_interval_illegal">Please input the number between 0 and 60000</string>
+    <!-- General Settings -->
+    <string name="general_settings">General Settings</string>
+    <!-- Barcode Send Model -->
+    <string name="barcode_send_model">Barcode Send Model</string>
+    <string name="title_lights_config">Lights Configuration</string>
+
+    <!-- CodeSetFragment -->
+    <string name="code_tab_title">Code</string>
+    <string name="menu_item_hint">menuItem</string>
+    <string name="codeset_btn_details">Details</string>
+    <string name="code_advance">Advanced Configuration</string>
+    <string name="pls_open_reader">Please open the Scanner switch first</string>
+    <string name="code_len_error">Please input prompt range</string>
+
+    <!-- SoftScanService -->
+    <string name="service_started">Scanner has been opened</string>
+    <string name="service_stopped">Scanner has been closed</string>
+    <string name="charset_err">Decoding error, please try setting other character encoding</string>
+</resources>

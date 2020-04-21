@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">扫描服务0</string>
+    <string name="getparam">获取</string>
+    <string name="setparam">设置</string>
+
+    <string name="ok">确认</string>
+    <string name="config_on"><u>打开</u></string>
+    <string name="config_off"><u>关闭</u></string>
+</resources>

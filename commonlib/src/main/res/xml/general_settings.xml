@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="root_screen">
+
+    <!-- Open/Close reader -->
+    <PreferenceCategory android:title="@string/service_switch">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="switch_scan_service"
+            android:summary="@string/closed"
+            android:title="@string/service_switch" />
+    </PreferenceCategory>
+
+    <!-- Decoding Preferences -->
+    <PreferenceCategory
+        android:key="category_decoding"
+        android:title="@string/decoding_settings">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="scanning_voice"
+            android:summary="@string/opened"
+            android:title="@string/preference_voice_title" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="scanning_vibrator"
+            android:summary="@string/closed"
+            android:title="@string/preference_vibrator_title" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="scanning_Illumination"
+            android:summary="@string/opened"
+            android:title="@string/preference_illumination_title" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="scanning_aiming_pattern"
+            android:summary="@string/opened"
+            android:title="@string/preference_aiming_pattern_title" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="scanning_invisibleChar"
+            android:summary="@string/closed"
+            android:title="@string/preference_invisible_char" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="scanning_rmSpace"
+            android:summary="@string/closed"
+            android:title="@string/preference_rm_space" />
+
+        <EditTextPreference
+            android:defaultValue="5000"
+            android:inputType="number"
+            android:key="decode_time_limit"
+            android:summary="5000"
+            android:title="@string/decode_time_limit_title" />
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/char_set_title"
+            android:entryValues="@array/char_set"
+            android:key="result_char_set"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:summary="utf-8"
+            android:title="@string/result_char_set" />
+
+        <!-- 添加前缀、后缀 -->
+        <EditTextPreference
+            android:defaultValue="@null"
+            android:key="prefix_config"
+            android:summary=""
+            android:title="@string/prefix" />
+
+        <EditTextPreference
+            android:defaultValue="@null"
+            android:key="suffix_config"
+            android:summary=""
+            android:title="@string/suffix" />
+
+        <ListPreference
+            android:defaultValue="4"
+            android:entries="@array/append_ending_entry"
+            android:entryValues="@array/append_ending_value"
+            android:key="append_ending_char"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:summary="NONE"
+            android:title="@string/append_ending_char" />
+    </PreferenceCategory>
+
+    <!-- Scanning Preferences -->
+    <PreferenceCategory
+        android:key="category_scanning"
+        android:title="@string/scanning_preferences">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="scanning_stop_on_up"
+            android:summary="@string/closed"
+            android:title="@string/stop_scan_on_up" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="continuous_scanning"
+            android:summary="@string/closed"
+            android:title="@string/continuous_scanning" />
+
+        <EditTextPreference
+            android:defaultValue="@string/scanning_interval_default"
+            android:inputType="number"
+            android:key="scanning_interval"
+            android:enabled="false"
+            android:summary="@string/scanning_interval_default"
+            android:title="@string/scanning_interval" />
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/barcode_send_model_entry"
+            android:entryValues="@array/barcode_send_model_entry_value"
+            android:key="inputConfig"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/input_config" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:enabled="false"
+            android:key="scanning_end_char_model"
+            android:summary="@string/closed"
+            android:title="@string/scanning_end_char_model" />
+
+        <PreferenceScreen
+            android:summary="@string/key_config_sum"
+            android:title="@string/key_config">
+
+            <PreferenceScreen android:layout="@layout/layout_screen" />
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="131"
+                android:title="@string/key_f1" />
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="132"
+                android:title="@string/key_f2" />
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="133"
+                android:title="@string/key_f3" />
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="134"
+                android:title="@string/key_f4" />
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="135"
+                android:title="@string/key_f5" />
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="136"
+                android:title="@string/key_f6" />
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="137"
+                android:title="@string/key_f7" />
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

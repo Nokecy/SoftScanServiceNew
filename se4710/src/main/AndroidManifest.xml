@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ssn.se4710"
+    android:sharedUserId="android.uid.system">
+
+    <permission
+        android:name="com.hhw.ssn.provider.READ_PERMISSION"
+        android:label="StateProvider read permission"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.hhw.ssn.provider.WRITE_PERMISSION"
+        android:label="StateProvider read permission"
+        android:protectionLevel="normal" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.INJECT_EVENTS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:name=".Se4710Application"
+        android:allowBackup="false"
+        android:icon="@drawable/logo_scan"
+        android:label="@string/app_name"
+        android:persistent="true"
+        android:roundIcon="@drawable/logo_scan"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:allowBackup">
+        <activity android:name=".CodeParamSetActivity"></activity>
+        <activity
+            android:name="com.hhw.ssn.comui.TabHostActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".BootInitActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoDisplay" />
+
+        <service
+            android:name=".Se4710Service"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="com.rfid.ssn" />
+
+        <receiver android:name=".BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name=".StateProvider"
+            android:authorities="com.hhw.ssn.provider"
+            android:readPermission="com.hhw.ssn.provider.READ_PERMISSION"
+            android:writePermission="com.hhw.ssn.provider.WRITE_PERMISSION"
+            android:process=":provider"
+            android:exported="true"/>
+    </application>
+
+</manifest>

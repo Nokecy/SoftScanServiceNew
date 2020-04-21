@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ParamSetActivity">
+
+    <com.hhw.ssn.comui.TopToolbar
+        android:id="@+id/tb_topToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.hhw.ssn.comui.TopToolbar>
+
+    <LinearLayout
+        android:layout_below="@+id/tb_topToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/tv_min_len"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/paramset_min_len"/>
+        <EditText
+            android:id="@+id/et_min_len"
+            android:layout_below="@+id/tv_min_len"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="0"/>
+
+        <TextView
+            android:id="@+id/tv_max_len"
+            android:layout_below="@+id/et_min_len"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/paramset_max_len"/>
+        <EditText
+            android:id="@+id/et_max_len"
+            android:layout_below="@+id/tv_max_len"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="0"/>
+
+        <CheckBox
+            android:id="@+id/cb_Check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="校验使能"
+            android:textSize="15dp"/>
+
+        <CheckBox
+            android:id="@+id/cb_TrsmtChkChar"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发送校验"
+            android:textSize="15dp"/>
+
+        <CheckBox
+            android:id="@+id/cb_Digit2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2位附加码"
+            android:textSize="15dp"/>
+
+        <CheckBox
+            android:id="@+id/cb_Digit5"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5位附加码"
+            android:textSize="15dp"/>
+
+        <CheckBox
+            android:id="@+id/cb_AddonRequired"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="要求附加码"
+            android:textSize="15dp" />
+
+        <CheckBox
+            android:id="@+id/cb_TrsmtStasrtStop"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="传送起始停止符"
+            android:textSize="15dp"/>
+
+
+        <CheckBox
+            android:id="@+id/cb_FullAscii"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FullAscii"
+            android:textSize="15dp"/>
+
+
+
+        <CheckBox
+            android:id="@+id/cb_BitCode32Prech"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="允许Code32有前异符"
+            android:textSize="15dp"/>
+
+        <CheckBox
+            android:id="@+id/cb_Code32SpecEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="允许Code32转义处理"
+            android:textSize="15dp"/>
+
+
+
+        <CheckBox
+            android:id="@+id/cb_Code32TrsmtChkChar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Code32发送校验"
+            android:textSize="15dp"/>
+
+
+        <CheckBox
+            android:id="@+id/cb_Code32TrsmtStasrtStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Code32传送起始和终止符"
+            android:textSize="15dp"/>
+        <CheckBox
+            android:id="@+id/cb_TrsmtSysDigit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="传送系统字符'0'"
+            android:textSize="15dp"/>
+
+        <CheckBox
+        android:id="@+id/cb_MsgToupca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="条码信息扩展成 UPCA"
+        android:textSize="15dp"/>
+
+        <CheckBox
+            android:id="@+id/cb_Tdoupca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tdoupca"
+            android:textSize="15dp"/>
+
+        <CheckBox
+            android:id="@+id/cb_Uscode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Uscode"
+            android:textSize="15dp"/>
+
+        <CheckBox
+            android:id="@+id/cb_CloseSysChar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CloseSysChar"
+            android:textSize="15dp"/>
+
+        <CheckBox
+            android:id="@+id/cb_Gs1Coupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="只有 GS1"
+            android:textSize="15dp"/>
+
+        <CheckBox
+            android:id="@+id/cb_ReqCoupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="必须 UPCA+Coupon"
+            android:textSize="15dp"/>
+
+        <CheckBox
+            android:id="@+id/cb_Coupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="允许 UPCA+Coupon"
+            android:textSize="15dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Text"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_save_param"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/codeset_item_btn_margin"
+        android:background="@drawable/btn_selector"
+        android:text="使能配置参数"
+        android:textAllCaps="false"
+        android:textSize="@dimen/codeset_item_textview_btn_text_size"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

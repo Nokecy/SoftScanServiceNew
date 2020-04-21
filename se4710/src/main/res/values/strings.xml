@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Scan0Service</string>
+    <string name="getparam">Get</string>
+    <string name="setparam">Set</string>
+
+    <string name="ok">OK</string>
+    <string name="config_on"><u>On</u></string>
+    <string name="config_off"><u>Off</u></string>
+</resources>

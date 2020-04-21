@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/expand_child_tv"
+    android:textSize="18sp"
+    android:paddingTop="10dp"
+    android:paddingStart="32dp"
+    android:paddingEnd="0dp"
+    android:paddingBottom="10dp"
+    android:textColor="@android:color/holo_blue_dark"
+    tools:text="测试数据："/>
