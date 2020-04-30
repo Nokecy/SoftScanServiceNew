@@ -8,8 +8,8 @@ android {
         applicationId "com.ssn.se4710"
         minSdkVersion 24
         targetSdkVersion 28
-        versionCode 9
-        versionName "1.9"
+        versionCode 10
+        versionName "1.9.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -40,10 +40,10 @@ android {
 
     buildTypes {
         debug {
-            signingConfig signingConfigs.bx6000
+            signingConfig signingConfigs.bx1000
         }
         release {
-            signingConfig signingConfigs.bx6000
+            signingConfig signingConfigs.bx1000
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

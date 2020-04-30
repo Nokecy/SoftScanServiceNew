@@ -35,6 +35,9 @@ public class MyExtendableListViewAdapter extends BaseExpandableListAdapter {
         childString = new Symbology[array.length()][];
         SymbologyDao symbologyDao = Se4710Application.getInstances().getDaoSession().getSymbologyDao();
         List<Symbology> symbologies = symbologyDao.loadAll();
+        if (symbologies.size() <= 0){
+            return;
+        }
         int index = 0;
         for (int i = 0; i < array.length(); i++) {
             String[] tempStr = context.getResources().getStringArray(array.getResourceId(i, -1));

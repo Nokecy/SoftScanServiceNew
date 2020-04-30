@@ -115,4 +115,8 @@ public class ServiceActionKey {
      * MULL Action
      */
     public static final String ACTION_NULL = "com.rfid.NULL";
+    /**
+     * 悬浮按钮开关
+     */
+    public static final String ACTION_FLOAT_BUTTON = "com.rfid.float_button";
 }

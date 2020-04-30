@@ -44,7 +44,7 @@ public class SoundPoolMgr {
                  */
                 int maxMusic = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
                 int curMusic = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
-                Log.e("Huang,SoundPoolMgr", "music_max:" + maxMusic + ", cur:" + curMusic);
+                LogUtils.v("Huang,SoundPoolMgr", "music_max:" + maxMusic + ", cur:" + curMusic);
                 audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, maxMusic, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             }
             sWeakReference = new WeakReference<>(context);

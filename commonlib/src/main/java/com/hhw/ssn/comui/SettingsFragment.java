@@ -10,10 +10,12 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.hhw.ssn.combean.PreferenceKey;
 import com.hhw.ssn.combean.ServiceActionKey;
 import com.hhw.ssn.commonlib.R;
+import com.hhw.ssn.comutils.FloatService;
 import com.hhw.ssn.comutils.LogUtils;
 import com.hhw.ssn.comutils.RegularUtils;
 import com.hhw.ssn.comutils.ToastUtils;
@@ -42,6 +44,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     private SwitchPreference mSwitchVibrate;
     private SwitchPreference mSwitchInvisibleChar;
     private SwitchPreference mSwitchRmSpace;
+    private SwitchPreference mSwitchFloatButton;
     private SwitchPreference mSwitchStopOnUp;
     private EditTextPreference mEditPreferenceTimeout;
     private BaseApplication mApplication;
@@ -104,6 +107,9 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         // 松开按键是否停止扫描的设置
         mSwitchStopOnUp = (SwitchPreference) findPreference(PreferenceKey.KEY_STOP_ON_UP);
         mSwitchStopOnUp.setOnPreferenceChangeListener(this);
+        // 悬浮按钮设置
+        mSwitchFloatButton = (SwitchPreference) findPreference(PreferenceKey.KEY_FLOAT_BUTTON);
+        mSwitchFloatButton.setOnPreferenceChangeListener(this);
         // 扫描超时设置
         mEditPreferenceTimeout = (EditTextPreference) findPreference(PreferenceKey.KEY_DECODE_TIME);
         mEditPreferenceTimeout.setOnPreferenceChangeListener(this);
@@ -137,6 +143,12 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                 break;
             case PreferenceKey.KEY_RM_SPACE:
                 updateSwtichPreference(mSwitchRmSpace, (boolean) newValue);
+                break;
+            case PreferenceKey.KEY_FLOAT_BUTTON:
+                updateSwtichPreference(mSwitchFloatButton, (boolean) newValue);
+                Intent intent = new Intent(ServiceActionKey.ACTION_FLOAT_BUTTON);
+                intent.putExtra("isShow", (Boolean) newValue);
+                LocalBroadcastManager.getInstance(this.getActivity()).sendBroadcast(intent);
                 break;
             case PreferenceKey.KEY_STOP_ON_UP:
                 updateSwtichPreference(mSwitchStopOnUp, (boolean) newValue);

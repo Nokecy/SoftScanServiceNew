@@ -31,6 +31,7 @@ import com.hhw.ssn.combean.PreferenceKey;
 import com.hhw.ssn.combean.ServiceActionKey;
 import com.hhw.ssn.comui.KeyBroadcastReceiver;
 import com.hhw.ssn.comui.TabHostActivity;
+import com.hhw.ssn.comutils.FloatService;
 import com.hhw.ssn.comutils.LogUtils;
 import com.hhw.ssn.comutils.RegularUtils;
 import com.hhw.ssn.comutils.SoundPoolMgr;
@@ -195,6 +196,15 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
         }
     }
 
+    private BroadcastReceiver mLocalReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            LogUtils.e(TAG, "onReceive: action=" + intent.getAction());
+            boolean isShow = intent.getBooleanExtra("isShow", false);
+            updateFloatButton(isShow);
+        }
+    };
+
     public Se4710Service() {
     }
 
@@ -243,6 +253,8 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
         mDefaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         mSoundPoolMgr = SoundPoolMgr.getInstance(this);
         mLbm = LocalBroadcastManager.getInstance(this);
+        IntentFilter intentFilter = new IntentFilter(ServiceActionKey.ACTION_FLOAT_BUTTON);
+        mLbm.registerReceiver(mLocalReceiver, intentFilter);
         boolean aBoolean = mDefaultSharedPreferences.getBoolean(PreferenceKey.KEY_SWITCH_SCAN, false);
         if (aBoolean) {
             Intent initIntent = new Intent();
@@ -265,6 +277,7 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
         // 注销广播
         unregisterReceiver(mSettingsReceiver);
         unregisterReceiver(mKeyReceiver);
+        unregisterReceiver(mLocalReceiver);
         // 释放音频资源
         mSoundPoolMgr.release();
     }
@@ -394,6 +407,10 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                     mDefaultSharedPreferences.edit().putBoolean(PreferenceKey.KEY_SWITCH_SCAN, true).apply();
                 }
                 setNotification();
+                // 开启悬浮窗
+                boolean aBoolean = mDefaultSharedPreferences.getBoolean(PreferenceKey.KEY_FLOAT_BUTTON, false);
+                LogUtils.e(TAG, "updateFloatButton: aBoolean=" + aBoolean);
+                updateFloatButton(aBoolean);
                 bcr = BarCodeReader.open(2, getApplicationContext());
                 // add callback
                 bcr.setDecodeCallback(this);
@@ -706,6 +723,7 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
             mIsInit = false;
             mDefaultSharedPreferences.edit().putBoolean(PreferenceKey.KEY_SWITCH_SCAN, false).apply();
             setNotification();
+            updateFloatButton(false);
             LogUtils.i(TAG, "uninitReader, close engine");
             boolean iscamera = intent.getBooleanExtra("iscamera", false);
             if (iscamera) {
@@ -892,6 +910,19 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
         Notification notification = builder.build();
         notification.flags |= FLAG_NO_CLEAR;
         startForeground(R.string.app_name, notification);
+    }
+
+    /**
+     * 显示或隐藏悬浮按钮
+     */
+    private void updateFloatButton(boolean isShow) {
+        if (isShow) {
+            Intent floatButtonIntent = new Intent(Se4710Service.this.getApplicationContext(), FloatService.class);
+            startService(floatButtonIntent);
+        } else {
+            Intent floatButtonIntent = new Intent(Se4710Service.this.getApplicationContext(), FloatService.class);
+            stopService(floatButtonIntent);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

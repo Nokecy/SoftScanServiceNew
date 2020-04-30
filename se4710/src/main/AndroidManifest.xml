@@ -21,6 +21,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission
         android:name="android.permission.INJECT_EVENTS"
         tools:ignore="ProtectedPermissions" />
@@ -37,7 +38,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
-        <activity android:name=".CodeParamSetActivity"></activity>
+        <activity android:name=".CodeParamSetActivity"/>
         <activity
             android:name="com.hhw.ssn.comui.TabHostActivity"
             android:screenOrientation="portrait">
@@ -57,6 +58,8 @@
             android:enabled="true"
             android:exported="true"
             android:permission="com.rfid.ssn" />
+
+        <service android:name="com.hhw.ssn.comutils.FloatService"/>
 
         <receiver android:name=".BootReceiver">
             <intent-filter>

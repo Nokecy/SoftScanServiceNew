@@ -59,6 +59,8 @@
     <string name="key_f7">F7</string>
     <!-- Stop Scan On Up -->
     <string name="stop_scan_on_up">Stop scan on up</string>
+    <!-- Float Button -->
+    <string name="float_button">Float Button</string>
     <!-- Continuous Scanning -->
     <string name="continuous_scanning">Continuous Scanning</string>
     <string name="scanning_interval">Scanning Interval(ms)</string>

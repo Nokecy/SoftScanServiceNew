@@ -101,6 +101,12 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:key="scanning_float_button"
+            android:summary="@string/closed"
+            android:title="@string/float_button" />
+
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="scanning_stop_on_up"
             android:summary="@string/closed"
             android:title="@string/stop_scan_on_up" />

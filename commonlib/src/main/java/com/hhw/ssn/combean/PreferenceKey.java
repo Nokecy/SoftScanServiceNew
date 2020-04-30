@@ -18,6 +18,7 @@ public class PreferenceKey {
     public static final String KEY_SCANNING_AIMING_PATTERN = "scanning_aiming_pattern";
     public static final String KEY_INVISIBLE_CHAR = "scanning_invisibleChar";
     public static final String KEY_RM_SPACE = "scanning_rmSpace";
+    public static final String KEY_FLOAT_BUTTON = "scanning_float_button";
     public static final String KEY_STOP_ON_UP = "scanning_stop_on_up";
     public static final String KEY_DECODE_TIME = "decode_time_limit";
     public static final String KEY_RESULT_CHAR_SET = "result_char_set";
