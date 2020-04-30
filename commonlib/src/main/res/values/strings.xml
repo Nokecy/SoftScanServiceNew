@@ -83,5 +83,6 @@
     <!-- SoftScanService -->
     <string name="service_started">Scanner has been opened</string>
     <string name="service_stopped">Scanner has been closed</string>
+    <string name="engine_not_found">C</string>
     <string name="charset_err">Decoding error, please try setting other character encoding</string>
 </resources>

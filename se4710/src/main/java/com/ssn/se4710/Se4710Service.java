@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.content.ClipboardManager;
 import android.graphics.BitmapFactory;
 import android.graphics.SurfaceTexture;
+import android.hardware.Camera;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.Vibrator;
@@ -411,36 +412,42 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                 boolean aBoolean = mDefaultSharedPreferences.getBoolean(PreferenceKey.KEY_FLOAT_BUTTON, false);
                 LogUtils.e(TAG, "updateFloatButton: aBoolean=" + aBoolean);
                 updateFloatButton(aBoolean);
-                bcr = BarCodeReader.open(2, getApplicationContext());
-                // add callback
-                bcr.setDecodeCallback(this);
-                bcr.setErrorCallback(this);
-                // Set parameter - Uncomment for QC/MTK platforms
-                // For QC/MTK platforms
-                bcr.setParameter(765, 0);
-                bcr.setParameter(764, 5);
+                // 获取Camera个数，传入4710的CameraId
+                int id = Camera.getNumberOfCameras();
+                if (id != -1) {
+                    bcr = BarCodeReader.open(id, getApplicationContext());
+                    // add callback
+                    bcr.setDecodeCallback(this);
+                    bcr.setErrorCallback(this);
+                    // Set parameter - Uncomment for QC/MTK platforms
+                    // For QC/MTK platforms
+                    bcr.setParameter(765, 0);
+                    bcr.setParameter(764, 5);
 //            bcr.setParameter(8610, 1);
-                // Set Orientation
-                // 4 - omnidirectional
-                bcr.setParameter(687, 4);
-                if (android.os.Build.VERSION.SDK_INT >= 28) {
-                    mSurfaceTexture = new SurfaceTexture(5);
-                    mSurfaceTexture.setOnFrameAvailableListener(this);
-                    bcr.setPreviewTexture(mSurfaceTexture);
-                }
-                mIsInit = true;
-                // load previous settings
-                String timeout = mDefaultSharedPreferences.getString(PreferenceKey.KEY_DECODE_TIME, "5000");
-                assignDecodeTimeout(new Intent().putExtra("time", timeout));
-                int illu = mDefaultSharedPreferences.getBoolean(PreferenceKey.KEY_SCANNING_ILLUMINATION, true) ? 1 : 0;
-                assignIllumination(new Intent().putExtra(PreferenceKey.KEY_SCANNING_ILLUMINATION, illu));
-                int anInt = mDefaultSharedPreferences.getBoolean(PreferenceKey.KEY_SCANNING_AIMING_PATTERN, true) ? 1 : 0;
-                assignAimingPattern(new Intent().putExtra(PreferenceKey.KEY_SCANNING_AIMING_PATTERN, anInt));
-                initSymbologies();
-                mDefaultSharedPreferences.edit().putBoolean("needReInit", false).apply();
+                    // Set Orientation
+                    // 4 - omnidirectional
+                    bcr.setParameter(687, 4);
+                    if (android.os.Build.VERSION.SDK_INT >= 28) {
+                        mSurfaceTexture = new SurfaceTexture(5);
+                        mSurfaceTexture.setOnFrameAvailableListener(this);
+                        bcr.setPreviewTexture(mSurfaceTexture);
+                    }
+                    mIsInit = true;
+                    // load previous settings
+                    String timeout = mDefaultSharedPreferences.getString(PreferenceKey.KEY_DECODE_TIME, "5000");
+                    assignDecodeTimeout(new Intent().putExtra("time", timeout));
+                    int illu = mDefaultSharedPreferences.getBoolean(PreferenceKey.KEY_SCANNING_ILLUMINATION, true) ? 1 : 0;
+                    assignIllumination(new Intent().putExtra(PreferenceKey.KEY_SCANNING_ILLUMINATION, illu));
+                    int anInt = mDefaultSharedPreferences.getBoolean(PreferenceKey.KEY_SCANNING_AIMING_PATTERN, true) ? 1 : 0;
+                    assignAimingPattern(new Intent().putExtra(PreferenceKey.KEY_SCANNING_AIMING_PATTERN, anInt));
+                    initSymbologies();
+                    mDefaultSharedPreferences.edit().putBoolean("needReInit", false).apply();
 //            setDecoderLightMod(true, new Intent().putExtra(PreferenceKey.KEY_LIGHTS_CONFIG, lightMod));
 //            String illuminationLevel = mDefaultSharedPreferences.getString(PreferenceKey.KEY_ILLUMINATION_LEVEL, "4");
 //            setIlluminationLevel(true, new Intent().putExtra(PreferenceKey.KEY_ILLUMINATION_LEVEL, illuminationLevel));
+                } else {
+                    showToast(Se4710Service.this.getString(R.string.engine_not_found));
+                }
             }
         } catch (Exception e) {
 //            if (e.getMessage().contains("Failed to connect to reader service")) {
