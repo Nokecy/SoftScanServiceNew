@@ -20,6 +20,10 @@ import com.hhw.ssn.comutils.LogUtils;
 import com.hhw.ssn.comutils.RegularUtils;
 import com.hhw.ssn.comutils.ToastUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 /**
  * @author HuangLei 1252065297@qq.com
  * <code>
@@ -61,6 +65,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         addPreferencesFromResource(R.xml.general_settings);
         initView();
         LogUtils.i(TAG, "onCreate");
+        EventBus.getDefault().register(this);
     }
 
     private void initView() {
@@ -279,6 +284,12 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 //        }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
     /**
      * 更新ListPreference的Summary
      *
@@ -361,5 +372,55 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         configIntent.setAction(action);
         configIntent.putExtra(key, extras);
         this.getActivity().getApplicationContext().sendBroadcast(configIntent);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(String event) {
+        if (mApplication == null) {
+            mApplication = ((BaseApplication) this.getActivity().getApplication());
+        }
+        // 更新扫描开关状态
+        initSwitchPreferen(mSwitchScanService, PreferenceKey.KEY_SWITCH_SCAN, false);
+        // 更新声音开关状态
+        initSwitchPreferen(mSwitchVoice, PreferenceKey.KEY_SCANNING_VOICE, true);
+        // 更新震动开关状态
+        initSwitchPreferen(mSwitchVibrate, PreferenceKey.KEY_SCANNING_VIBRATOR, false);
+        // 更新照明开关状态
+        initSwitchPreferen(mSwitchIllumination, PreferenceKey.KEY_SCANNING_ILLUMINATION, true);
+        // 更新瞄准开关状态
+        initSwitchPreferen(mSwitchAimingPattern, PreferenceKey.KEY_SCANNING_AIMING_PATTERN, true);
+        // 更新去除不可见字符设置的状态
+        initSwitchPreferen(mSwitchInvisibleChar, PreferenceKey.KEY_INVISIBLE_CHAR, false);
+        // 更新去除首尾空格设置的状态
+        initSwitchPreferen(mSwitchRmSpace, PreferenceKey.KEY_RM_SPACE, false);
+        // 更新抬起按键是否停止扫描的设置项的状态
+        initSwitchPreferen(mSwitchStopOnUp, PreferenceKey.KEY_STOP_ON_UP, true);
+        // 更新连续扫描开关状态
+        initSwitchPreferen(mSwitchContinuous, PreferenceKey.KEY_CONTINUOUS_SCANNING, false);
+        // 更新前后缀内容
+        updateEditPreference(mPrefixPreference, PreferenceKey.KEY_PREFIX_CONFIG, "");
+        updateEditPreference(mSuffixPreference, PreferenceKey.KEY_SUFFIX_CONFIG, "");
+//        mPrefixPreference.setSummary(mDefaultSharedPreferences.getString(PreferenceKey.KEY_PREFIX_CONFIG, ""));
+//        mSuffixPreference.setSummary(mDefaultSharedPreferences.getString(PreferenceKey.KEY_SUFFIX_CONFIG, ""));
+        // 更新扫描超时项的状态
+//        String scanningTimeout = mDefaultSharedPreferences.getString(PreferenceKey.KEY_DECODE_TIME, "10000");
+//        mEditPreferenceTimeout.setSummary(scanningTimeout);
+//        mEditPreferenceTimeout.setText(scanningTimeout);
+        updateEditPreference(mEditPreferenceTimeout, PreferenceKey.KEY_DECODE_TIME, "10000");
+        // 更新扫描间隔项的状态
+//        String scanningInterval = mDefaultSharedPreferences.getString(PreferenceKey.KEY_SCANNING_INTERVAL, "1000");
+//        mIntervalPreference.setSummary(scanningInterval);
+        updateEditPreference(mIntervalPreference, PreferenceKey.KEY_SCANNING_INTERVAL, "1000");
+        mIntervalPreference.setEnabled(mSwitchContinuous.isChecked());
+        // 更新扫描结果的发送方式
+        updatePreference(mListPreferenceInput, mDefaultSharedPreferences.getString(PreferenceKey.KEY_INPUT_CONFIG, "1"));
+        // 更新追加结束符设置项
+        updatePreference(mListPreferenceAppend, mDefaultSharedPreferences.getString(PreferenceKey.KEY_APPEND_ENDING_CHAR, "4"));
+        // 更新扫描结果的字符编码设置项
+        updatePreference(mListPreferenceCharset, mDefaultSharedPreferences.getString(PreferenceKey.KEY_RESULT_CHAR_SET, "1"));
+        // 更新所有设置项的可访问状态
+        enableAllSettings(mSwitchScanService.isChecked());
+        // 如果连续扫描开关打开，抬起停止设置项不可设置
+        mSwitchStopOnUp.setEnabled(!mSwitchContinuous.isChecked());
     }
 }

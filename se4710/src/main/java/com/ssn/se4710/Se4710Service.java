@@ -40,6 +40,8 @@ import com.ssn.se4710.dao.Symbology;
 import com.ssn.se4710.dao.SymbologyDao;
 import com.zebra.adc.decoder.BarCodeReader;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -408,6 +410,8 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                     mDefaultSharedPreferences.edit().putBoolean(PreferenceKey.KEY_SWITCH_SCAN, true).apply();
                 }
                 setNotification();
+                // 更新设置界面开关
+                EventBus.getDefault().post("new MessageEvent()");
                 // 开启悬浮窗
                 boolean aBoolean = mDefaultSharedPreferences.getBoolean(PreferenceKey.KEY_FLOAT_BUTTON, false);
                 LogUtils.e(TAG, "updateFloatButton: aBoolean=" + aBoolean);
@@ -730,6 +734,8 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
             mIsInit = false;
             mDefaultSharedPreferences.edit().putBoolean(PreferenceKey.KEY_SWITCH_SCAN, false).apply();
             setNotification();
+            // 更新设置界面开关
+            EventBus.getDefault().post("new MessageEvent()");
             updateFloatButton(false);
             LogUtils.i(TAG, "uninitReader, close engine");
             boolean iscamera = intent.getBooleanExtra("iscamera", false);

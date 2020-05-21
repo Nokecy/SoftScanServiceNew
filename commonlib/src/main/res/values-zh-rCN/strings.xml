@@ -84,6 +84,6 @@
     <!-- SoftScanService -->
     <string name="service_started">扫描服务已启动</string>
     <string name="service_stopped">扫描服务已关闭</string>
-    <string name="engine_not_found">No scan engine detected</string>
+    <string name="engine_not_found">未检测到扫描头</string>
     <string name="charset_err">解码错误,请尝试选择其他字符集</string>
 </resources>
