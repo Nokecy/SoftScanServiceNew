@@ -436,7 +436,6 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                         mSurfaceTexture.setOnFrameAvailableListener(this);
                         bcr.setPreviewTexture(mSurfaceTexture);
                     }
-                    mIsInit = true;
                     // load previous settings
                     String timeout = mDefaultSharedPreferences.getString(PreferenceKey.KEY_DECODE_TIME, "5000");
                     assignDecodeTimeout(new Intent().putExtra("time", timeout));
@@ -470,6 +469,7 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
             LogUtils.e(TAG, "initSymbologies, setPram " + symbology.getParamName() + symbology.getParamValue());
             bcr.setParameter(symbology.getParamNum(), symbology.getParamValue());
         }
+        mIsInit = true;
     }
 
     /**

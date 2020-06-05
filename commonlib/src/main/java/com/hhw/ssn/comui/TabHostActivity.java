@@ -42,6 +42,10 @@ public class TabHostActivity extends AppCompatActivity implements TopToolbar.Men
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!this.isTaskRoot()) {//解决按home，再次点击图标重新启动的问题
+            finish();
+            return;
+        }
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             // 用于判断这个Activity的启动标志，看它所在的应用是不是从后台跑到前台的。如果是，则直接把它finish（）掉，
             // 然后系统会去Activity启动历史栈查询上一个activity，然后再新建它，所以还原到了我们按home键出去的那个界面
