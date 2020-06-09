@@ -1,11 +1,15 @@
 package com.ssn.se4710;
 
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.hhw.ssn.comui.BaseApplication;
 import com.ssn.se4710.dao.DaoMaster;
 import com.ssn.se4710.dao.DaoSession;
 import com.ssn.se4710.dao.MySQLiteOpenHelper;
+
+import java.io.File;
 
 /**
  * description : DESCRIPTION
@@ -25,11 +29,25 @@ public class Se4710Application extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        try {
+            // 根据/sys/bus/platform/drivers/image_sensor/main2_camera_name路径是否存在，判断是否有4710扫描头
+            PackageManager pm = getPackageManager();
+            File file = new File("/sys/bus/platform/drivers/image_sensor/main2_camera_name");
+            boolean exists = file.exists();
+            Log.d("HwSoftScanControl", "onCreate /sys/bus/platform/drivers/image_sensor/main2_camera_name exists : " + exists);
+            if (!exists) {
+                pm.setApplicationEnabledSetting("com.ssn.se4710", PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
+            } else {
+                pm.setApplicationEnabledSetting("com.ssn.se4710", PackageManager.COMPONENT_ENABLED_STATE_ENABLED, 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         sInstance = this;
         setDatabase();
     }
 
-    public static Se4710Application getInstances(){
+    public static Se4710Application getInstances() {
         return sInstance;
     }
 
