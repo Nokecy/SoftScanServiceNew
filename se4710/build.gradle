@@ -8,8 +8,8 @@ android {
         applicationId "com.ssn.se4710"
         minSdkVersion 24
         targetSdkVersion 28
-        versionCode 15
-        versionName "1.9.7"
+        versionCode 16
+        versionName "1.9.8"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -58,10 +58,14 @@ android {
     }
     applicationVariants.all { variant ->
         variant.outputs.all {
-            def fileName = "se4710service_v${defaultConfig.versionName}.apk"
+            def fileName = "se4710service_v${defaultConfig.versionName}_${releaseTime()}.apk"
             outputFileName = fileName
         }
     }
+}
+
+static def releaseTime() {
+    return new Date().format("yyyy-MM-dd-hh-mm-ss")
 }
 
 dependencies {

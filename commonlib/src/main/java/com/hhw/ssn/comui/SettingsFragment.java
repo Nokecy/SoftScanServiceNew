@@ -1,5 +1,7 @@
 package com.hhw.ssn.comui;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +13,9 @@ import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import com.hhw.ssn.combean.PreferenceKey;
 import com.hhw.ssn.combean.ServiceActionKey;
@@ -32,7 +37,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * Update At 2019/4/27 11:14
  * </code>
  */
-public class SettingsFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
+public class SettingsFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private final String TAG = SettingsFragment.class.getSimpleName();
     private SharedPreferences mDefaultSharedPreferences;
@@ -54,6 +59,8 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     private BaseApplication mApplication;
     private SwitchPreference mSwitchIllumination;
     private SwitchPreference mSwitchAimingPattern;
+
+    private Dialog dialogLoading;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -94,6 +101,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         // 扫描开关监听
         mSwitchScanService = (SwitchPreference) findPreference(PreferenceKey.KEY_SWITCH_SCAN);
         mSwitchScanService.setOnPreferenceChangeListener(this);
+        mSwitchScanService.setOnPreferenceClickListener(this);
         // 连续扫描开关
         mSwitchContinuous = (SwitchPreference) findPreference(PreferenceKey.KEY_CONTINUOUS_SCANNING);
         mSwitchContinuous.setOnPreferenceChangeListener(this);
@@ -171,6 +179,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                     // 自动扫描开启时，禁用抬起停止扫描项
                     if (mSwitchStopOnUp.isChecked()) {
                         mSwitchStopOnUp.setChecked(false);
+                        updateSwtichPreference(mSwitchStopOnUp, false);
                     }
                 } else {
                     mSwitchContinuous.setSummary(R.string.closed);
@@ -178,7 +187,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                 }
                 mIntervalPreference.setEnabled(isContinuousSwitchOpen);
                 mSwitchStopOnUp.setEnabled(!isContinuousSwitchOpen);
-                updateSwtichPreference(mSwitchStopOnUp, !isContinuousSwitchOpen);
                 break;
             case PreferenceKey.KEY_SCANNING_INTERVAL:
                 String interval = (String) newValue;
@@ -287,6 +295,9 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (dialogLoading != null && dialogLoading.isShowing()) {
+            dialogLoading.cancel();
+        }
         EventBus.getDefault().unregister(this);
     }
 
@@ -422,5 +433,35 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         enableAllSettings(mSwitchScanService.isChecked());
         // 如果连续扫描开关打开，抬起停止设置项不可设置
         mSwitchStopOnUp.setEnabled(!mSwitchContinuous.isChecked());
+        // 取消提示框
+        dialogLoading.cancel();
+    }
+
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        String key = preference.getKey();
+        LogUtils.i(TAG, "onPreferenceClick key = " + key);
+        if (key.equals(PreferenceKey.KEY_SWITCH_SCAN)) {
+            createLoadingDialog(!mSwitchScanService.isChecked());
+        }
+        return false;
+    }
+
+    /**
+     * 提示框，提示用户正在初始化，用以避免用户快速点击开关造成异常
+     */
+    private void createLoadingDialog(boolean checked) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+        View view = LayoutInflater.from(this.getActivity()).inflate(R.layout.dialog_loading, null, false);
+        TextView tv = view.findViewById(R.id.textView1);
+        if (checked) {
+            tv.setText(R.string.opening);
+        } else {
+            tv.setText(R.string.closeing);
+        }
+        builder.setView(view);
+        dialogLoading = builder.create();
+        dialogLoading.setCancelable(false);
+        dialogLoading.show();
     }
 }

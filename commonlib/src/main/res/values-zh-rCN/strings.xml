@@ -22,6 +22,8 @@
     <string name="closed">已关闭</string>
     <string name="opened">已打开</string>
     <string name="settings_tab_title">一般设置</string>
+    <string name="opening">正在打开</string>
+    <string name="closeing">正在关闭</string>
     <!-- Service Switch -->
     <string name="service_switch">扫描开关</string>
     <!-- Enable/Disable Symbology -->
@@ -41,7 +43,7 @@
     <string name="prefix">前缀</string>
     <string name="suffix">后缀</string>
     <string name="append_ending_char">追加结束符</string>
-    <string name="decode_time_limit_illegal">请输入1000到10000之间的数字</string>
+    <string name="decode_time_limit_illegal">请输入500到10000之间的数字</string>
     <!-- Scanning Preferences -->
     <string name="scanning_preferences">扫描设置</string>
     <string name="input_config">输入设置</string>

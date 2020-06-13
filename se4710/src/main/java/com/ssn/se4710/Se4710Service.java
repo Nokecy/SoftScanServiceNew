@@ -8,11 +8,11 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.ClipboardManager;
 import android.graphics.BitmapFactory;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
@@ -66,7 +66,7 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
     /**
      * 扫描头初始化标志
      */
-    private boolean mIsInit = false;
+    public static boolean mIsInit = false;
     /**
      * 是否正在扫描，避免多次触发扫描
      */
@@ -410,8 +410,6 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                     mDefaultSharedPreferences.edit().putBoolean(PreferenceKey.KEY_SWITCH_SCAN, true).apply();
                 }
                 setNotification();
-                // 更新设置界面开关
-                EventBus.getDefault().post("new MessageEvent()");
                 // 开启悬浮窗
                 boolean aBoolean = mDefaultSharedPreferences.getBoolean(PreferenceKey.KEY_FLOAT_BUTTON, false);
                 LogUtils.e(TAG, "updateFloatButton: aBoolean=" + aBoolean);
@@ -436,14 +434,15 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                         mSurfaceTexture.setOnFrameAvailableListener(this);
                         bcr.setPreviewTexture(mSurfaceTexture);
                     }
+                    initSymbologies();
                     // load previous settings
                     String timeout = mDefaultSharedPreferences.getString(PreferenceKey.KEY_DECODE_TIME, "5000");
-                    assignDecodeTimeout(new Intent().putExtra("time", timeout));
+                    initDecodeTimeout(new Intent().putExtra("time", timeout));
                     int illu = mDefaultSharedPreferences.getBoolean(PreferenceKey.KEY_SCANNING_ILLUMINATION, true) ? 1 : 0;
-                    assignIllumination(new Intent().putExtra(PreferenceKey.KEY_SCANNING_ILLUMINATION, illu));
+                    initIllumination(new Intent().putExtra(PreferenceKey.KEY_SCANNING_ILLUMINATION, illu));
                     int anInt = mDefaultSharedPreferences.getBoolean(PreferenceKey.KEY_SCANNING_AIMING_PATTERN, true) ? 1 : 0;
-                    assignAimingPattern(new Intent().putExtra(PreferenceKey.KEY_SCANNING_AIMING_PATTERN, anInt));
-                    initSymbologies();
+                    initAimingPattern(new Intent().putExtra(PreferenceKey.KEY_SCANNING_AIMING_PATTERN, anInt));
+                    mIsInit = true;
                     mDefaultSharedPreferences.edit().putBoolean("needReInit", false).apply();
 //            setDecoderLightMod(true, new Intent().putExtra(PreferenceKey.KEY_LIGHTS_CONFIG, lightMod));
 //            String illuminationLevel = mDefaultSharedPreferences.getString(PreferenceKey.KEY_ILLUMINATION_LEVEL, "4");
@@ -451,6 +450,8 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                 } else {
                     showToast(Se4710Service.this.getString(R.string.engine_not_found));
                 }
+                // 更新设置界面开关
+                EventBus.getDefault().post("new MessageEvent()");
             }
         } catch (Exception e) {
 //            if (e.getMessage().contains("Failed to connect to reader service")) {
@@ -469,7 +470,6 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
             LogUtils.e(TAG, "initSymbologies, setPram " + symbology.getParamName() + symbology.getParamValue());
             bcr.setParameter(symbology.getParamNum(), symbology.getParamValue());
         }
-        mIsInit = true;
     }
 
     /**
@@ -483,7 +483,7 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
             try {
                 if (RegularUtils.verifyScanTimeout(decodeTimeStr)) {
                     mDefaultSharedPreferences.edit().putString(PreferenceKey.KEY_DECODE_TIME, decodeTimeStr).apply();
-                    int decodeTimeout = Integer.valueOf(decodeTimeStr) / 100;
+                    int decodeTimeout = Integer.parseInt(decodeTimeStr) / 100;
                     if (decodeTimeout == 100) {
                         decodeTimeout = 99;
                     }
@@ -494,6 +494,27 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
             } catch (Exception e) {
                 Log.i("Huang," + TAG, "assignDecodeTimeout fail! Parameter error");
             }
+        }
+    }
+
+    /**
+     * 初始化扫描时间，读取上一次的扫描超时，设置给扫描头
+     */
+    private void initDecodeTimeout(Intent intent) {
+        String decodeTimeStr = intent.getStringExtra("time");
+        try {
+            if (RegularUtils.verifyScanTimeout(decodeTimeStr)) {
+                mDefaultSharedPreferences.edit().putString(PreferenceKey.KEY_DECODE_TIME, decodeTimeStr).apply();
+                int decodeTimeout = Integer.parseInt(decodeTimeStr) / 100;
+                if (decodeTimeout == 100) {
+                    decodeTimeout = 99;
+                }
+                bcr.setParameter(BarCodeReader.ParamNum.LASER_ON_PRIM, decodeTimeout);
+            } else {
+                Log.i("Huang," + TAG, "assignDecodeTimeout fail! Parameter error");
+            }
+        } catch (Exception e) {
+            Log.i("Huang," + TAG, "assignDecodeTimeout fail! Parameter error");
         }
     }
 
@@ -518,6 +539,22 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
     }
 
     /**
+     * 初始化照明设置，将上一次设置设置给扫描头
+     */
+    private void initIllumination(Intent intent) {
+        int intExtra = intent.getIntExtra(PreferenceKey.KEY_SCANNING_ILLUMINATION, 1);
+        if (RegularUtils.verifyIllumAim(intExtra)) {
+            int i = bcr.getNumParameter(BarCodeReader.ParamNum.IMG_ILLUM);
+            if (intExtra != i) {
+                bcr.setParameter(BarCodeReader.ParamNum.IMG_ILLUM, intExtra);
+                mDefaultSharedPreferences.edit().putBoolean(PreferenceKey.KEY_SCANNING_ILLUMINATION, intExtra == 1).apply();
+            }
+        } else {
+            Log.i("Huang," + TAG, "assignIllumination fail! Parameter error");
+        }
+    }
+
+    /**
      * 扫描头瞄准开关设置，默认为开
      */
     private void assignAimingPattern(Intent intent) {
@@ -534,6 +571,22 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
             }
         } else {
             Log.i("Huang," + TAG, "assignAimingPattern fail! Reader is not init, init first");
+        }
+    }
+
+    /**
+     * 初始化瞄准设置，将上一次瞄准设置设置给扫描头
+     */
+    private void initAimingPattern(Intent intent) {
+        int intExtra = intent.getIntExtra(PreferenceKey.KEY_SCANNING_AIMING_PATTERN, 1);
+        if (RegularUtils.verifyIllumAim(intExtra)) {
+            int i = bcr.getNumParameter(BarCodeReader.ParamNum.IMG_AIM_MODE);
+            if (intExtra != i) {
+                bcr.setParameter(BarCodeReader.ParamNum.IMG_AIM_MODE, intExtra);
+                mDefaultSharedPreferences.edit().putBoolean(PreferenceKey.KEY_SCANNING_AIMING_PATTERN, intExtra == 1).apply();
+            }
+        } else {
+            Log.i("Huang," + TAG, "assignAimingPattern fail! Parameter error");
         }
     }
 
@@ -560,7 +613,7 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
     /**
      * 设置可以触发扫描的按键
      */
-    private void assignScanKey(Intent intent){
+    private void assignScanKey(Intent intent) {
         if (!mIsInit) {
             Log.i("Huang," + TAG, "assignScanKey fail! Reader is not init, init first");
         } else {
@@ -583,13 +636,13 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
     /**
      * 扫描头参数设置
      */
-    private void assignScanParam(Intent intent){
+    private void assignScanParam(Intent intent) {
         if (!mIsInit) {
             Log.i("Huang," + TAG, "assignScanParam fail! Reader is not init, init first");
         } else {
             try {
                 int paramNum = intent.getIntExtra("paramNum", -1);
-                if (paramNum <= -1){
+                if (paramNum <= -1) {
                     paramNum = intent.getIntExtra("number", -1);
                     if (paramNum <= -1) {
                         Log.i("Huang," + TAG, "assignScanParam fail! Parameter paramNum error");
@@ -599,7 +652,7 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                     }
                 } else {
                     int paramVal = intent.getIntExtra("paramVal", -1);
-                    if (paramVal <= -1){
+                    if (paramVal <= -1) {
                         Log.i("Huang," + TAG, "assignScanParam fail! Parameter paramVal error");
                     } else {
                         bcr.setParameter(paramNum, paramVal);
@@ -1148,7 +1201,7 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
     /**
      * 将扫描结果复制到剪切板
      */
-    private void copyToClipboard(String data){
+    private void copyToClipboard(String data) {
         ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData mClipData = ClipData.newPlainText("Label", data);
         cm.setPrimaryClip(mClipData);
