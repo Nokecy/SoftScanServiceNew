@@ -455,9 +455,9 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         View view = LayoutInflater.from(this.getActivity()).inflate(R.layout.dialog_loading, null, false);
         TextView tv = view.findViewById(R.id.textView1);
         if (checked) {
-            tv.setText(R.string.opening);
-        } else {
             tv.setText(R.string.closeing);
+        } else {
+            tv.setText(R.string.opening);
         }
         builder.setView(view);
         dialogLoading = builder.create();
