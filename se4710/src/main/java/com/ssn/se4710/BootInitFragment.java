@@ -50,6 +50,7 @@ public class BootInitFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.general_settings);
         mIsBoot = getArguments().getBoolean("isBoot");
+        startService();
         LogUtils.e(TAG, "onCreate, ");
     }
 
