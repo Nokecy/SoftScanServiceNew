@@ -66,7 +66,7 @@
     <!-- Continuous Scanning -->
     <string name="continuous_scanning">Continuous Scanning</string>
     <string name="scanning_interval">Scanning Interval(ms)</string>
-    <string name="scanning_interval_default">1000</string>
+    <string name="scanning_interval_default">50</string>
     <string name="scanning_interval_illegal">Please input the number between 0 and 60000</string>
     <!-- General Settings -->
     <string name="general_settings">General Settings</string>

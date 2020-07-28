@@ -333,14 +333,16 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                 public void run() {
                     boolean continuousModeFlag = mDefaultSharedPreferences.getBoolean(PreferenceKey.KEY_CONTINUOUS_SCANNING, false);
                     boolean isLooping = mDefaultSharedPreferences.getBoolean("mIsLooping", false);
-                    LogUtils.d(TAG, "continuousScan continuousModeFlag=" + continuousModeFlag + ", isLooping=" + isLooping);
+                    LogUtils.e(TAG, "continuousScan continuousModeFlag=" + continuousModeFlag + ", isLooping=" + isLooping);
                     if (continuousModeFlag && isLooping) {
                         bcr.startDecode();
                     }
                 }
             }, interval, TimeUnit.MILLISECONDS);
         } else {
-            bcr.stopDecode();
+            if (bcr != null) {
+                bcr.stopDecode();
+            }
             mIsScanning = false;
         }
     }
@@ -425,7 +427,8 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                     // For QC/MTK platforms
                     bcr.setParameter(765, 0);
                     bcr.setParameter(764, 5);
-//            bcr.setParameter(8610, 1);
+                    bcr.setParameter(8610, 1);
+                    bcr.setParameter(8611, 1);
                     // Set Orientation
                     // 4 - omnidirectional
                     bcr.setParameter(687, 4);

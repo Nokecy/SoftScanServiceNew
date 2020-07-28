@@ -16,10 +16,10 @@ public class RegularUtils {
      * 扫描解码超时时间的值应该在500(ms) - 10000(ms)之间
      */
     public static boolean verifyScanTimeout(String timeout){
-        if (TextUtils.isEmpty(timeout)){
+        if (TextUtils.isEmpty(timeout) || timeout.length() > 5){
             return false;
         }
-        int i = Integer.valueOf(timeout);
+        int i = Integer.parseInt(timeout);
         int maxTime = 10000;
         int minTime = 500;
         return i >= minTime && i <= maxTime;
@@ -29,10 +29,10 @@ public class RegularUtils {
      * 连续扫描之间的间隔时间应该在0(ms) - 60000(ms)
      */
     public static boolean verifyScanInterval(String interval){
-        if (TextUtils.isEmpty(interval)){
+        if (TextUtils.isEmpty(interval) || interval.length() > 5){
             return false;
         }
-        int i = Integer.valueOf(interval);
+        int i = Integer.parseInt(interval);
         int maxTime = 60000;
         int minTime = 0;
         return i >= minTime && i <= maxTime;
