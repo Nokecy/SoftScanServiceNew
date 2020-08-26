@@ -427,8 +427,10 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                     // For QC/MTK platforms
                     bcr.setParameter(765, 0);
                     bcr.setParameter(764, 5);
-                    bcr.setParameter(8610, 1);
-                    bcr.setParameter(8611, 1);
+                    if (id == 2) {
+                        bcr.setParameter(8610, 1);
+                        bcr.setParameter(8611, 1);
+                    }
                     // Set Orientation
                     // 4 - omnidirectional
                     bcr.setParameter(687, 4);
