@@ -187,7 +187,9 @@
         <item>|-- UPC-E: </item>
         <item>|-- UPC-E1: </item>
         <item>|-- EAN-8: </item>
+        <item>|-- Transmit EAN-8 Check Digit: </item>
         <item>|-- EAN-13: </item>
+        <item>|-- Transmit EAN-13 Check Digit: </item>
         <item>|-- Bookland EAN: </item>
         <item>|-- Transmit UPC-A Check Digit: </item>
         <item>|-- Transmit UPC-E Check Digit: </item>
@@ -408,7 +410,9 @@
         <item>2</item>
         <item>12</item>
         <item>4</item>
+        <item>1881</item>
         <item>3</item>
+        <item>1882</item>
         <item>83</item>
         <item>40</item>
         <item>41</item>
@@ -506,6 +510,8 @@
         <item>1</item>
         <item>1</item>
         <item>0</item>
+        <item>1</item>
+        <item>1</item>
         <item>1</item>
         <item>1</item>
         <item>0</item>
