@@ -31,6 +31,10 @@ public class ServiceActionKey {
      */
     public static final String ACTION_AIMING_PATTERN = "com.rfid.AIMING_PATTERN";
     /**
+     * 扫描头PickListMode设置
+     */
+    public static final String ACTION_PICK_LIST_MODE = "com.rfid.PICK_LIST_MODE";
+    /**
      * 条码或二维码数据的发送方式设置
      */
     public static final String ACTION_SET_SCAN_MODE = "com.rfid.SET_SCAN_MODE";

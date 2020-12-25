@@ -53,6 +53,13 @@ public class RegularUtils {
     }
 
     /**
+     * PICKLISTMODE开关取值范围：0(关), 2(开)
+     */
+    public static boolean verifyPickListMode(int i){
+        return i == 0 || i == 2;
+    }
+
+    /**
      * 长度设置输入框的内容校验，只能输入0~55之间的长度
      * @param i 待校验的长度数据
      * @return 校验结果

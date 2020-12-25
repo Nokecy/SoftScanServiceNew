@@ -59,6 +59,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     private BaseApplication mApplication;
     private SwitchPreference mSwitchIllumination;
     private SwitchPreference mSwitchAimingPattern;
+    private SwitchPreference mSwitchPickListMode;
 
     private Dialog dialogLoading;
 
@@ -83,6 +84,9 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         // 瞄准图标开关设置
         mSwitchAimingPattern = (SwitchPreference) findPreference(PreferenceKey.KEY_SCANNING_AIMING_PATTERN);
         mSwitchAimingPattern.setOnPreferenceChangeListener(this);
+        // PickListMode设置
+        mSwitchPickListMode = (SwitchPreference) findPreference(PreferenceKey.KEY_SCANNING_PICKLIST_MODE);
+        mSwitchPickListMode.setOnPreferenceChangeListener(this);
         // 前缀设置
         mPrefixPreference = (EditTextPreference) findPreference(PreferenceKey.KEY_PREFIX_CONFIG);
         mPrefixPreference.setOnPreferenceChangeListener(this);
@@ -215,6 +219,10 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                 updateSwtichPreference(mSwitchAimingPattern, (boolean) newValue);
                 sendCmdWithi(ServiceActionKey.ACTION_AIMING_PATTERN, PreferenceKey.KEY_SCANNING_AIMING_PATTERN, (boolean) newValue ? 1 : 0);
                 break;
+            case PreferenceKey.KEY_SCANNING_PICKLIST_MODE:
+                updateSwtichPreference(mSwitchPickListMode, (boolean) newValue);
+                sendCmdWithi(ServiceActionKey.ACTION_PICK_LIST_MODE, PreferenceKey.KEY_SCANNING_PICKLIST_MODE, (boolean) newValue ? 2 : 0);
+                break;
             case PreferenceKey.KEY_ILLUMINATION_LEVEL:
                 updatePreference((ListPreference) preference, (String) newValue);
                 sendCmdWiths(ServiceActionKey.ACTION_ILLUMINATION_LEVEL, PreferenceKey.KEY_ILLUMINATION_LEVEL, (String) newValue);
@@ -245,6 +253,8 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         initSwitchPreferen(mSwitchIllumination, PreferenceKey.KEY_SCANNING_ILLUMINATION, true);
         // 更新瞄准开关状态
         initSwitchPreferen(mSwitchAimingPattern, PreferenceKey.KEY_SCANNING_AIMING_PATTERN, true);
+        // 更新PickListMode开关状态
+        initSwitchPreferen(mSwitchPickListMode, PreferenceKey.KEY_SCANNING_PICKLIST_MODE, false);
         // 更新去除不可见字符设置的状态
         initSwitchPreferen(mSwitchInvisibleChar, PreferenceKey.KEY_INVISIBLE_CHAR, false);
         // 更新去除首尾空格设置的状态
@@ -400,6 +410,8 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         initSwitchPreferen(mSwitchIllumination, PreferenceKey.KEY_SCANNING_ILLUMINATION, true);
         // 更新瞄准开关状态
         initSwitchPreferen(mSwitchAimingPattern, PreferenceKey.KEY_SCANNING_AIMING_PATTERN, true);
+        // 更新PickListMode开关状态
+        initSwitchPreferen(mSwitchPickListMode, PreferenceKey.KEY_SCANNING_PICKLIST_MODE, false);
         // 更新去除不可见字符设置的状态
         initSwitchPreferen(mSwitchInvisibleChar, PreferenceKey.KEY_INVISIBLE_CHAR, false);
         // 更新去除首尾空格设置的状态

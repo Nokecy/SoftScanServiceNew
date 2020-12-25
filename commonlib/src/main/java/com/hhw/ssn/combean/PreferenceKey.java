@@ -16,6 +16,7 @@ public class PreferenceKey {
     public static final String KEY_SCANNING_VIBRATOR = "scanning_vibrator";
     public static final String KEY_SCANNING_ILLUMINATION = "scanning_Illumination";
     public static final String KEY_SCANNING_AIMING_PATTERN = "scanning_aiming_pattern";
+    public static final String KEY_SCANNING_PICKLIST_MODE = "scanning_picklist_mode";
     public static final String KEY_INVISIBLE_CHAR = "scanning_invisibleChar";
     public static final String KEY_RM_SPACE = "scanning_rmSpace";
     public static final String KEY_FLOAT_BUTTON = "scanning_float_button";

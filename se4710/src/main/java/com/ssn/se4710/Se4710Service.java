@@ -143,6 +143,9 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                 case ServiceActionKey.ACTION_AIMING_PATTERN:
                     assignAimingPattern(intent);
                     break;
+                case ServiceActionKey.ACTION_PICK_LIST_MODE:
+                    assignPickListMode(intent);
+                    break;
                 case ServiceActionKey.ACTION_SET_SCAN_MODE:
                     assignResultMode(intent);
                     break;
@@ -232,6 +235,7 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
         intentFilter.addAction(ServiceActionKey.ACTION_SCAN_VIBERATE);
         intentFilter.addAction(ServiceActionKey.ACTION_ILLUMINATION);
         intentFilter.addAction(ServiceActionKey.ACTION_AIMING_PATTERN);
+        intentFilter.addAction(ServiceActionKey.ACTION_PICK_LIST_MODE);
         intentFilter.addAction(ServiceActionKey.ACTION_SCAN_FILTER_BLANK);
         intentFilter.addAction(ServiceActionKey.ACTION_SCAN_FILTER_INVISIBLE_CHARS);
         intentFilter.addAction(ServiceActionKey.ACTION_SCAN_PREFIX);
@@ -447,6 +451,8 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                     initIllumination(new Intent().putExtra(PreferenceKey.KEY_SCANNING_ILLUMINATION, illu));
                     int anInt = mDefaultSharedPreferences.getBoolean(PreferenceKey.KEY_SCANNING_AIMING_PATTERN, true) ? 1 : 0;
                     initAimingPattern(new Intent().putExtra(PreferenceKey.KEY_SCANNING_AIMING_PATTERN, anInt));
+                    int pickListModeInt = mDefaultSharedPreferences.getBoolean(PreferenceKey.KEY_SCANNING_PICKLIST_MODE, false) ? 2 : 0;
+                    initPickListMode(new Intent().putExtra(PreferenceKey.KEY_SCANNING_PICKLIST_MODE, pickListModeInt));
                     mIsInit = true;
                     mDefaultSharedPreferences.edit().putBoolean("needReInit", false).apply();
 //            setDecoderLightMod(true, new Intent().putExtra(PreferenceKey.KEY_LIGHTS_CONFIG, lightMod));
@@ -589,6 +595,42 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
             if (intExtra != i) {
                 bcr.setParameter(BarCodeReader.ParamNum.IMG_AIM_MODE, intExtra);
                 mDefaultSharedPreferences.edit().putBoolean(PreferenceKey.KEY_SCANNING_AIMING_PATTERN, intExtra == 1).apply();
+            }
+        } else {
+            Log.i("Huang," + TAG, "assignAimingPattern fail! Parameter error");
+        }
+    }
+
+    /**
+     * 扫描头瞄准开关设置，默认为关
+     */
+    private void assignPickListMode(Intent intent) {
+        if (mIsInit) {
+            int intExtra = intent.getIntExtra(PreferenceKey.KEY_SCANNING_PICKLIST_MODE, 0);
+            if (RegularUtils.verifyPickListMode(intExtra)) {
+                int i = bcr.getNumParameter(BarCodeReader.ParamNum.PICKLIST_MODE);
+                if (intExtra != i) {
+                    bcr.setParameter(BarCodeReader.ParamNum.PICKLIST_MODE, intExtra);
+                    mDefaultSharedPreferences.edit().putBoolean(PreferenceKey.KEY_SCANNING_PICKLIST_MODE, intExtra == 2).apply();
+                }
+            } else {
+                Log.i("Huang," + TAG, "assignAimingPattern fail! Parameter error");
+            }
+        } else {
+            Log.i("Huang," + TAG, "assignAimingPattern fail! Reader is not init, init first");
+        }
+    }
+
+    /**
+     * 初始化PickList Mode设置，将上一次参数设置给扫描头
+     */
+    private void initPickListMode(Intent intent) {
+        int intExtra = intent.getIntExtra(PreferenceKey.KEY_SCANNING_PICKLIST_MODE, 0);
+        if (RegularUtils.verifyPickListMode(intExtra)) {
+            int i = bcr.getNumParameter(BarCodeReader.ParamNum.PICKLIST_MODE);
+            if (intExtra != i) {
+                bcr.setParameter(BarCodeReader.ParamNum.PICKLIST_MODE, intExtra);
+                mDefaultSharedPreferences.edit().putBoolean(PreferenceKey.KEY_SCANNING_PICKLIST_MODE, intExtra == 2).apply();
             }
         } else {
             Log.i("Huang," + TAG, "assignAimingPattern fail! Parameter error");

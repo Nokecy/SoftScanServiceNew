@@ -35,6 +35,7 @@
     <string name="preference_vibrator_title">振动</string>
     <string name="preference_illumination_title">照明</string>
     <string name="preference_aiming_pattern_title">瞄准</string>
+    <string name="preference_picklist_mode_title">Picklist Mode</string>
     <string name="preference_invisible_char">过滤不可见字符</string>
     <string name="preference_rm_space">过滤前后空格</string>
     <string name="decode_time_limit_title">扫描超时(ms)</string>

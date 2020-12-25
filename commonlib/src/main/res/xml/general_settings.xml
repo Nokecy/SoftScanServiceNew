@@ -43,6 +43,12 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:key="scanning_picklist_mode"
+            android:summary="@string/closed"
+            android:title="@string/preference_picklist_mode_title" />
+
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="scanning_invisibleChar"
             android:summary="@string/closed"
             android:title="@string/preference_invisible_char" />

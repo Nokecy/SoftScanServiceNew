@@ -34,6 +34,7 @@
     <string name="preference_vibrator_title">Vibrate</string>
     <string name="preference_illumination_title">Illumination</string>
     <string name="preference_aiming_pattern_title">Aiming Pattern</string>
+    <string name="preference_picklist_mode_title">Picklist Mode</string>
     <string name="preference_invisible_char">Filter invisible char</string>
     <string name="preference_rm_space">Filter pre/suffix blank</string>
     <string name="decode_time_limit_title">Decode Time Limit(ms)</string>
