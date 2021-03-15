@@ -340,14 +340,18 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                     LogUtils.e(TAG, "continuousScan continuousModeFlag=" + continuousModeFlag + ", isLooping=" + isLooping);
                     if (continuousModeFlag && isLooping) {
                         bcr.startDecode();
+//                        startScan();
                     }
                 }
             }, interval, TimeUnit.MILLISECONDS);
         } else {
             if (bcr != null) {
-                bcr.stopDecode();
+//                bcr.stopDecode();
+                stopScan();
+                LogUtils.d(TAG, "continuousScan stopDecode");
             }
             mIsScanning = false;
+            LogUtils.d(TAG, "continuousScan change Flag mIsScanning");
         }
     }
 
@@ -422,6 +426,7 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                 updateFloatButton(aBoolean);
                 // 获取Camera个数，传入4710的CameraId
                 int id = Camera.getNumberOfCameras();
+                id = 1 ;
                 if (id != -1) {
                     bcr = BarCodeReader.open(id, getApplicationContext());
                     // add callback
@@ -431,18 +436,18 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                     // For QC/MTK platforms
                     bcr.setParameter(765, 0);
                     bcr.setParameter(764, 5);
-                    if (id == 2) {
+//                    if (id == 2) {
                         bcr.setParameter(8610, 1);
-                        bcr.setParameter(8611, 1);
-                    }
+//                        bcr.setParameter(8611, 1);
+//                    }
                     // Set Orientation
                     // 4 - omnidirectional
                     bcr.setParameter(687, 4);
-                    if (android.os.Build.VERSION.SDK_INT >= 28) {
-                        mSurfaceTexture = new SurfaceTexture(5);
-                        mSurfaceTexture.setOnFrameAvailableListener(this);
-                        bcr.setPreviewTexture(mSurfaceTexture);
-                    }
+//                    if (android.os.Build.VERSION.SDK_INT >= 28) {
+//                        mSurfaceTexture = new SurfaceTexture(5);
+//                        mSurfaceTexture.setOnFrameAvailableListener(this);
+//                        bcr.setPreviewTexture(mSurfaceTexture);
+//                    }
                     initSymbologies();
                     // load previous settings
                     String timeout = mDefaultSharedPreferences.getString(PreferenceKey.KEY_DECODE_TIME, "5000");
@@ -748,7 +753,7 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                             changeOperationFlag();
                             LogUtils.i(TAG, "startScan, completed");
                         }
-                    }, 50, TimeUnit.MILLISECONDS);
+                    }, 100, TimeUnit.MILLISECONDS);
                 }
             } else {
                 LogUtils.i(TAG, "startScan, operation reject, scanner is waiting for next operation");
@@ -799,7 +804,7 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
                             }
                             mIsWaiting = false;
                         }
-                    }, 50, TimeUnit.MILLISECONDS);
+                    }, 100, TimeUnit.MILLISECONDS);
                 }
             } else {
                 LogUtils.i(TAG, "stopScan, operation reject, scanner is waiting for next operation");
@@ -820,7 +825,7 @@ public class Se4710Service extends Service implements BarCodeReader.DecodeCallba
             public void run() {
                 mIsAllowableNextOperation = true;
             }
-        }, 15, TimeUnit.MILLISECONDS);
+        }, 100, TimeUnit.MILLISECONDS);
     }
 
     /**
